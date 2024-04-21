@@ -12,12 +12,12 @@ export const getUsers = (req:Request, res:Response) => {
 };
 
 export const addUser = (req:any,res:any) => {
-    const q = "INSERT INTO usuarios('nome', 'email', 'senha') VALUES (?)"
+    const q = "INSERT INTO usuarios(Nome, Email, Senha) VALUES (?)"
 
     const values = [
-        req.body.nome,
-        req.body.email,
-        req.body.senha,  
+        req.body.Nome,
+        req.body.Email,
+        req.body.Senha,  
     ];
 
     db.query(q, [values], (err) => {
@@ -28,11 +28,11 @@ export const addUser = (req:any,res:any) => {
 };
 
 export const updateUser = (req:any,res:any) => {
-    const q = "UPDATE usuarios SET 'nome' = ?, 'email'= ?, 'senha'= ? WHERE 'id' = ?"
+    const q = "UPDATE usuarios SET Nome = ?, Email= ?, Senha= ? WHERE id = ?";
     const values = [
-        req.body.nome,
-        req.body.email,
-        req.body.senha,  
+        req.body.Nome,
+        req.body.Email,
+        req.body.Senha,  
     ];
 
     db.query(q, [...values, req.params.id], (err) => {
@@ -43,7 +43,7 @@ export const updateUser = (req:any,res:any) => {
 };
 
 export const deleteUser = (req:any,res:any) => {
-    const q = "DELETE FROM usuarios WHERE 'id' = ?"
+    const q = "DELETE FROM usuarios WHERE id = ?"
 
     db.query(q, [req.params.id], (err) => {
         if(err) return res.json(err);
