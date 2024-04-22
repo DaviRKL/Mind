@@ -1,14 +1,29 @@
 import express from "express";
 import { getUsers, addUser, updateUser, deleteUser } from "../controllers/user";
-
+import { getProdutos, addProduto, updateProduto, deleteProduto } from "../controllers/produto";
+import multer from "multer";
+const path = require("path");
 const router = express.Router();
 
-router.get("/", getUsers);
+const storage = multer.diskStorage({
+    destination: function (req:any, file:any, cb:any) {
+        cb(null, "./imagens/");
+    },
+    filename: function (req:any, file:any, cb:any) {
+        cb(null, file.originalname);
+    },
+});
 
-router.post("/", addUser);
+const upload = multer({ storage: storage });
 
-router.put("/:id", updateUser);
+router.get("/", getProdutos);
 
-router.delete("/:id", deleteUser);
+router.post("/", upload.single('Imagem'), addProduto);
+
+router.put("/:id", updateProduto);
+
+router.delete("/:id", deleteProduto);
+
+router.get("/imagens", express.static(path.join(__dirname, "imagens")));
 
 export default router;
