@@ -1,6 +1,6 @@
 import express from "express";
 import { getUsers, addUser, updateUser, deleteUser } from "../controllers/user";
-import { getProdutos, addProduto, updateProduto, deleteProduto } from "../controllers/produto";
+import { getProdutos, addProduto, updateProduto, deleteProduto, viewProduto } from "../controllers/produto";
 import multer from "multer";
 const path = require("path");
 const router = express.Router();
@@ -24,6 +24,10 @@ router.put("/:id", updateProduto);
 
 router.delete("/:id", deleteProduto);
 
-router.get("/imagens", express.static(path.join(__dirname, "imagens")));
+
+router.use('/imagens/:nomeImagem', express.static(path.join(__dirname, '..', 'imagens')));
+
+
+router.get("/viewProduto/:id", viewProduto);
 
 export default router;

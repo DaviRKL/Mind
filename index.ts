@@ -1,12 +1,11 @@
 import express from "express";
 import cors from "cors";
 import userRoutes from "./routes/users";
-
-
+const helmet = require('helmet');
 
 const app = express();
 const corsOptions = {
-  origin: 'http://localhost:3000', 
+  origin: ['http://localhost:3000', 'http://localhost:8900'],
 };
 
 app.use(express.json());

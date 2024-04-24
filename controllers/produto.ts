@@ -48,7 +48,7 @@ export const addProduto = (req: any, res: any) => {
 
 
 export const updateProduto = (req:any,res:any) => {
-    const q = "UPDATE usuarios SET Nome = ?, Email= ?, Senha= ? WHERE id = ?";
+    const q = "UPDATE produtos SET Nome = ?, Descricao= ?,  Imagem= ? Valor= ? Qtd= ?  WHERE id = ?";
     const values = [
         req.body.Nome,
         req.body.Email,
@@ -63,7 +63,7 @@ export const updateProduto = (req:any,res:any) => {
 };
 
 export const deleteProduto = (req:any,res:any) => {
-    const q = "DELETE FROM usuarios WHERE id = ?"
+    const q = "DELETE FROM produtos WHERE id = ?"
 
     db.query(q, [req.params.id], (err) => {
         if(err) return res.json(err);
@@ -71,3 +71,14 @@ export const deleteProduto = (req:any,res:any) => {
         return res.status(200).json("Usuário deletado com sucesso");
     })
 };
+
+export const viewProduto = (req:Request,res:Response) => {
+    const q = "SELECT * FROM produtos WHERE id = ?"
+
+    db.query(q, [req.params.id], (err, data) => {
+        if(err) return res.json(err);
+
+        return res.status(200).json(data);
+    })
+};
+
